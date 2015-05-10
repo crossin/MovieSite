@@ -14,6 +14,11 @@ class index:
         movies = db.select('movie')
         return render.index(movies)
 
+    def POST(self):
+        data = web.input()
+        condition = r'title like "%' + data.title + r'%"'
+        print condition
+
 class movie:
     def GET(self, movie_id):
         movie = db.select('movie', where='id=$int(movie_id)', vars=locals())[0]
