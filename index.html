@@ -2,5 +2,9 @@ $def with (movies)
 <h1>Crossin's Movie Site</h1>
 $for movie in movies:
 	<li>
-	$movie['title'], $movie['year']
+		$movie['title'], $movie['year'], $movie['country']
+		<br />
+		$movie['abstract']
+		<br />
+		<br />
 	</li>
