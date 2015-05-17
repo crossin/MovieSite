@@ -1,3 +1,4 @@
+#coding:utf8
 import web
 
 db = web.database(dbn='sqlite', db='MovieSite.db')
@@ -5,7 +6,7 @@ render = web.template.render('templates/')
 
 urls = (
     '/', 'index',
-    '/movie/(\d+)', 'movie',
+    '/movie/(.*)', 'movie',
 )
 
 
@@ -13,11 +14,13 @@ class index:
     def GET(self):
         movies = db.select('movie')
         return render.index(movies)
-
+        
     def POST(self):
         data = web.input()
         condition = r'title like "%' + data.title + r'%"'
-        print condition
+        movies = db.select('movie', where=condition)
+        return render.index(movies)
+
 
 class movie:
     def GET(self, movie_id):
