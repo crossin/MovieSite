@@ -1,7 +1,8 @@
 $def with (movie)
 <h4><a href="/">返回首页</a></h4>
 <h1>$movie.title</h1>
-<hr>	
+<hr>
+<img src="/static/poster/$(movie.id).jpg">
 <p>年代：$movie.year</p>
-<p>国家：$movie.country</p>
-<p>$movie.abstract</p>
+<p>国家：$movie.countries</p>
+<p>$movie.summary</p>
