@@ -7,6 +7,8 @@ render = web.template.render('templates/')
 urls = (
     '/', 'index',
     '/movie/(.*)', 'movie',
+    '/cast/(.*)', 'cast',
+    '/director/(.*)', 'director',
 )
 
 
@@ -26,6 +28,20 @@ class movie:
     def GET(self, movie_id):
         movie = db.select('movie', where='id=$int(movie_id)', vars=locals())[0]
         return render.movie(movie)
+
+
+class cast:
+    def GET(self, cast_name):
+        condition = r'casts like "%' + cast_name + r'%"'
+        movies = db.select('movie', where=condition)
+        return render.index(movies)
+
+
+class director:
+    def GET(self, director_name):
+        condition = r'directors like "%' + director_name + r'%"'
+        movies = db.select('movie', where=condition)
+        return render.index(movies)
 
 
 if __name__ == "__main__":

@@ -5,4 +5,14 @@ $def with (movie)
 <img src="/static/poster/$(movie.id).jpg">
 <p>年代：$movie.year</p>
 <p>国家：$movie.countries</p>
+$ directors = movie.directors.split(',')
+<p>导演：
+$for director in directors:
+    <a href="/director/$director">$director</a>
+</p>
+$ casts = movie.casts.split(',')
+<p>主演：
+$for cast in casts:
+    <a href="/cast/$cast">$cast</a>
+</p>
 <p>$movie.summary</p>
