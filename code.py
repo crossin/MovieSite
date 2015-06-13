@@ -15,13 +15,15 @@ urls = (
 class index:
     def GET(self):
         movies = db.select('movie')
-        return render.index(movies)
+        count = db.query('SELECT COUNT(*) AS COUNT FROM movie')[0]['COUNT']
+        return render.index(movies, count, None)
         
     def POST(self):
         data = web.input()
-        condition = r'title like "%' + data.title + r'%"'
+        condition = r'TITLE LIKE "%' + data.title + r'%"'
         movies = db.select('movie', where=condition)
-        return render.index(movies)
+        count = db.query('SELECT COUNT(*) AS COUNT FROM movie WHERE ' + condition)[0]['COUNT']
+        return render.index(movies, count, data.title)
 
 
 class movie:
@@ -32,16 +34,18 @@ class movie:
 
 class cast:
     def GET(self, cast_name):
-        condition = r'casts like "%' + cast_name + r'%"'
+        condition = r'CASTS LIKE "%' + cast_name + r'%"'
         movies = db.select('movie', where=condition)
-        return render.index(movies)
+        count = db.query('SELECT COUNT(*) AS COUNT FROM movie WHERE ' + condition)[0]['COUNT']
+        return render.index(movies, count, cast_name)
 
 
 class director:
     def GET(self, director_name):
-        condition = r'directors like "%' + director_name + r'%"'
+        condition = r'DIRECTORS LIKE "%' + director_name + r'%"'
         movies = db.select('movie', where=condition)
-        return render.index(movies)
+        count = db.query('SELECT COUNT(*) AS COUNT FROM movie WHERE ' + condition)[0]['COUNT']
+        return render.index(movies, count, director_name)
 
 
 if __name__ == "__main__":
